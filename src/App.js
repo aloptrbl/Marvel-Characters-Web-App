@@ -8,6 +8,7 @@ const App = () => {
 
   const [heros, setHeros] = useState([]);
 
+
   useEffect( () => {
     getHero();
     //getColor();
@@ -30,6 +31,8 @@ const App = () => {
 
 
 
+
+
     //const getColor = async () => {
       //  const img = document.querySelector('.img');
         //const backgr = getAverageRGBA(img);
@@ -39,12 +42,12 @@ const App = () => {
 
   return(
 <div className="App">
-<Header />
+<Header heros={heros} />
 <Container>
 <Row>
 {heros.map(hero =>(
-  <Hero name={hero.name} thumbnail={hero.thumbnail} description={hero.description} />
-))};
+  <Hero name={hero.name} key={hero.name} thumbnail={hero.thumbnail} description={hero.description} />
+))}
 </Row>
 </Container>
 </div>

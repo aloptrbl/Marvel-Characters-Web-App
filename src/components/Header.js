@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Collapse,
   Navbar,
@@ -13,32 +13,44 @@ import {
   DropdownItem, Input, Col, Row } from 'reactstrap';
 
   import './style.css';
-export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
+const Header = (heros) => {
+  const [isOpen, setOpen] = useState('false');
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('r');
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  render() {
+  useEffect( () => {
+   toggle();
+  }, [])
+   
+const toggle = async () => {
+setOpen(!isOpen)
+}
+
+const updateSearch = e => {
+  setSearch(e.target.value);
+  console.log(search);
+}
+
+const getSearch = e => {
+  e.preventDefault();
+  setQuery(search);
+}
+
+
+
+
+
+
     return (
-      <div>
         <Navbar className="fixed-top nav"  light expand="md">
      
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
           <NavbarBrand className="navbar-brand mr-auto" href="/">MARVEL</NavbarBrand>
           <Col md="4" className="mx-auto">
           <NavItem>
           <Col md="12">
-          <Input className="searchbar form-control-lg" type="email" name="email" id="exampleEmail" placeholder="Search Heroes" />
+          <Input className="searchbar form-control-lg" onSubmit={getSearch} type="text" name="text" value={search} onChange={updateSearch} placeholder="Search Heroes" />
           </Col>
           </NavItem>
         </Col>
@@ -55,7 +67,8 @@ export default class Header extends React.Component {
             </Nav>
           </Collapse>
         </Navbar>
-      </div>
     );
-  }
+
 }
+
+export default Header;
